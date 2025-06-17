@@ -8,11 +8,10 @@ public:
     Database();
     ~Database();
 
-private: 
-    std::unordered_map<std::string, std::string>* memmap = {};
-
-public:
     std::string Get(std::string key);
     void Set(std::string key, std::string value);
     std::string Delete(std::string key);
+
+private: 
+    std::unordered_map<std::string, std::string>* memmap = {};
 };
