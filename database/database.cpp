@@ -1,5 +1,7 @@
 #include "database.hpp"
 
+#include <iostream>
+
 Database::Database() {
     this->memmap = new std::unordered_map<std::string, std::string>();
 }
@@ -9,7 +11,11 @@ Database::~Database() {
 }
 
 std::string Database::Get(std::string key) {
-    return this->memmap->at(key);
+    if (this->memmap->contains(key)) {
+        return this->memmap->at(key);
+    }
+
+    return std::string(""); 
 }
 
 void Database::Set(std::string key, std::string value) {
