@@ -1,6 +1,7 @@
 #include "parser.hpp"
 #include "operations/get.hpp"
 #include "operations/set.hpp"
+#include "operations/delete.hpp"
 #include "operations/noop.hpp"
 
 Parser* Parser::ParseCommand(Database* db, std::string line) {
@@ -20,6 +21,10 @@ Parser* Parser::ParseCommand(Database* db, std::string line) {
 
     if (command == "SET") {
         return new SetCommand(db, &line);
+    }
+
+    if (command == "DELETE") {
+        return new DeleteCommand(db, &line);
     }
 
     return new NoopCommand();

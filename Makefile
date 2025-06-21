@@ -1,4 +1,4 @@
-files = main.cpp database/database.cpp parser/parser.cpp parser/operations/get.cpp parser/operations/set.cpp parser/operations/noop.cpp
+files = main.cpp database/database.cpp parser/parser.cpp parser/operations/get.cpp parser/operations/set.cpp parser/operations/delete.cpp parser/operations/noop.cpp
 flags = -std=c++20 -Wall -Wextra -Werror -o build/debug/inmem 
 
 setup:
