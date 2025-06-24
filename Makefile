@@ -2,23 +2,28 @@ files = database/database.cpp parser/parser.cpp parser/operations/get.cpp parser
 flags = -std=c++20 -Wall -Wextra -Werror 
 
 setup:
-	@mkdir -p build/{debug,tests}
+	@ mkdir -p build/debug
 
 build: setup
-	@g++ -g $(flags) -o build/debug/inmem main.cpp $(files)
+	@ g++ -g $(flags) -o build/debug/inmem main.cpp $(files)
+
+release: setup
+	@ mkdir -p build/release
+	@ g++ $(flags) -O3 -o build/release/inmem main.cpp $(files)
 
 run: build
-	./build/debug/inmem
+	@ ./build/debug/inmem
 
 debug: build
-	gdb ./build/debug/inmem
+	@ gdb ./build/debug/inmem
 
 memory: build
-	valgrind ./build/debug/inmem
+	@ valgrind ./build/debug/inmem
 
 test: setup
-	@g++ -g $(flags) -o build/tests/inmem tests/main.cpp $(files)
-	./build/tests/inmem
+	@ mkdir -p build/tests
+	@ g++ -g $(flags) -o build/tests/inmem tests/main.cpp $(files)
+	@ ./build/tests/inmem
 
 clean:
-	rm -rf ./build
+	@ rm -rf ./build
