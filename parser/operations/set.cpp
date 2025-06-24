@@ -1,6 +1,6 @@
 #include "set.hpp"
 
-SetCommand::SetCommand(Database* db, std::string line) {
+SetCommand::SetCommand(std::shared_ptr<Database> db, std::string line) {
     this->line = line;
     this->db = db;
 }

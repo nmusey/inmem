@@ -1,6 +1,6 @@
 #include "get.hpp"
 
-GetCommand::GetCommand(Database* db, std::string line) {
+GetCommand::GetCommand(std::shared_ptr<Database> db, std::string line) {
     this->line = line;
     this->db = db;
 }

@@ -1,6 +1,6 @@
 #include "delete.hpp"
 
-DeleteCommand::DeleteCommand(Database* db, std::string line) {
+DeleteCommand::DeleteCommand(std::shared_ptr<Database> db, std::string line) {
     this->db = db;
     this->line = line;
 }
