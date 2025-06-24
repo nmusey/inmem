@@ -7,11 +7,11 @@
 
 class SetCommand: public Parser {
 public:
-    SetCommand(Database* db, std::string* line);
+    SetCommand(Database* db, std::string line);
 
     std::string Parse() override;
 
 private:
-    std::string* line;
+    std::string line;
     Database* db;
 };
