@@ -3,16 +3,12 @@
 #include <iostream>
 
 Database::Database() {
-    this->memmap = new std::unordered_map<std::string, std::string>();
-}
-
-Database::~Database() {
-    delete this->memmap;
+    this->store = std::make_unique<store_t>();
 }
 
 std::string Database::Get(std::string key) {
-    if (this->memmap->contains(key)) {
-        return this->memmap->at(key);
+    if (this->store->contains(key)) {
+        return this->store->at(key);
     }
 
     return std::string(""); 
@@ -20,12 +16,16 @@ std::string Database::Get(std::string key) {
 
 void Database::Set(std::string key, std::string value) {
     std::pair<std::string, std::string> pair = { key, value };
-    this->memmap->insert(pair);
+    this->store->insert(pair);
 }
 
 std::string Database::Delete(std::string key) {
     std::string current_value = this->Get(key);
-    this->memmap->erase(key);
+    this->store->erase(key);
 
     return current_value;
+}
+
+std::shared_ptr<store_t> Database::getStore() {
+    return this->store;
 }

@@ -7,17 +7,22 @@
 int main() {
     auto db = std::make_shared<Database>();
 
-    auto get = Parser::ParseCommand(db, std::string("GET hello"))->Parse();
-    std::cout << get << std::endl;
+    auto get = Parser::ParseCommand(db, "GET hello")->Parse();
+    std::cout << "Get1: " << get << std::endl;
 
-    auto set = Parser::ParseCommand(db, std::string("SET hello world"))->Parse();
-    std::cout << set << std::endl;
+    Parser::ParseCommand(db, "SET hello world")->Parse();
+    Parser::ParseCommand(db, "SET k1 v1")->Parse();
+    Parser::ParseCommand(db, "SET k2 v2")->Parse();
 
-    auto get2 = Parser::ParseCommand(db, std::string("GET hello"))->Parse();
-    std::cout << get2 << std::endl;
+    auto get2 = Parser::ParseCommand(db, "GET hello")->Parse();
+    std::cout << "Get2: " << get2 << std::endl;
 
-    auto del = Parser::ParseCommand(db, std::string("DELETE hello world"))->Parse();
-    std::cout << del << std::endl;
+    auto keys = Parser::ParseCommand(db, "KEYS")->Parse();
+    std::cout << "Keys: " << keys << std::endl;
+
+    auto del = Parser::ParseCommand(db, "DELETE hello world")->Parse();
+    std::cout << "Delete: " << del << std::endl;
+
 
     return 0;
 }

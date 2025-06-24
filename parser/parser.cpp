@@ -2,6 +2,7 @@
 #include "operations/get.hpp"
 #include "operations/set.hpp"
 #include "operations/delete.hpp"
+#include "operations/keys.hpp"
 #include "operations/noop.hpp"
 
 std::unique_ptr<Parser> Parser::ParseCommand(std::shared_ptr<Database> db, std::string line) {
@@ -14,12 +15,14 @@ std::unique_ptr<Parser> Parser::ParseCommand(std::shared_ptr<Database> db, std::
         command += toupper(c);
     }
 
-    // TODO - possible off by one error if no key given
-    line = line.substr(command.length()+1, line.length());
+    if (command.length() < line.length()) {
+        line = line.substr(command.length()+1, line.length());
+    }
 
     if (command == "GET") return std::make_unique<GetCommand>(db, line);
     if (command == "SET") return std::make_unique<SetCommand>(db, line);
     if (command == "DELETE") return std::make_unique<DeleteCommand>(db, line);
+    if (command == "KEYS") return std::make_unique<KeysCommand>(db);
 
     return std::make_unique<NoopCommand>();
 }
